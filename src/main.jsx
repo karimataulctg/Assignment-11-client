@@ -14,6 +14,9 @@ import Register from './mail/Register.jsx';
 import PageNotFound from './components/PageNotFound.jsx';
 import AddBook from './pages/AddBook.jsx';
 import Books from './pages/Books.jsx';
+import BookBorrow from './pages/BookBorrow.jsx';
+import BookDetails from './pages/BookDetails.jsx';
+import CategoryBooks from './pages/CategoryBooks.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +39,18 @@ const router = createBrowserRouter([
        {
         path: 'books',
         element: <Books></Books>
+       },
+       {
+        path: 'bookBorrow',
+        element: <BookBorrow></BookBorrow>
+       },
+       {
+        path: '/bookDetails/:bookId',
+        element: <BookDetails></BookDetails>
+       },
+       {
+        path: '/categories/:categoryId',
+        element: <CategoryBooks></CategoryBooks>
        },
        {
         path: "*",

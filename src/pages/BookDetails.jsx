@@ -1,158 +1,90 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const BookDetails = () => {
   const { bookId } = useParams();
-  const { currentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [book, setBook] = useState(null);
-  const [isBorrowing, setIsBorrowing] = useState(false);
-  const [returnDate, setReturnDate] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
-    // Fetch book details from the server
+    if (!bookId) return;
+
     fetch(`http://localhost:5000/books/${bookId}`)
-      .then((res) => res.json())
-      .then((data) => setBook(data));
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch book details');
+        return res.json();
+      })
+      .then((data) => {
+        setBook(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to fetch book details. Please try again later.',
+        });
+        setLoading(false);
+      });
   }, [bookId]);
 
-  const handleBorrow = () => {
-    if (!currentUser) {
-      Swal.fire({
-        icon: "warning",
-        title: "Login Required",
-        text: "Please login to borrow books.",
-      });
-      navigate("/login");
-      return;
-    }
-
-    // Validate return date
-    if (!returnDate) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Date",
-        text: "Please select a return date.",
-      });
-      return;
-    }
-
-    // Send borrow request to the server
-    fetch(`http://localhost:5000/borrow/${book._id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: currentUser.uid,
-        name: currentUser.displayName,
-        email: currentUser.email,
-        returnDate,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setBook((prev) => ({ ...prev, quantity: prev.quantity - 1 }));
-          Swal.fire({
-            icon: "success",
-            title: "Book Borrowed",
-            text: "The book has been successfully borrowed!",
-          });
-          setIsBorrowing(false);
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: data.message,
-          });
-        }
-      });
+  const handleBorrowBook = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Book Borrowed',
+      text: `You have successfully borrowed the book "${book.name}".`,
+    });
   };
 
-  if (!book) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (!book) return <div>No book details available.</div>;
+
+  const descriptionPreview = book.description.split(' ').slice(0, 30).join(' '); // First 30 words
 
   return (
     <div className="container mx-auto py-10">
-      <h2 className="text-4xl font-bold mb-4">{book.name}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <img
-          src={book.image}
-          alt={book.name}
-          className="rounded-lg shadow-lg"
-        />
+      {/* Book Name at the Top */}
+      <h2 className="text-4xl font-bold text-center mb-10">{book.name}</h2>
+      
+      {/* Layout with Image and Information */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        {/* Image Section */}
+        <div className="flex justify-center">
+          <img
+            src={book.image}
+            alt={book.name}
+            className="rounded-lg shadow-lg max-w-full md:max-w-xs"
+          />
+        </div>
+
+        {/* Information Section */}
         <div>
-          <p><strong>Author:</strong> {book.author}</p>
-          <p><strong>Category:</strong> {book.category}</p>
-          <p><strong>Quantity:</strong> {book.quantity}</p>
-          <p><strong>Rating:</strong> {book.rating}/5</p>
+          <p className="text-lg mb-2"><strong>Author:</strong> {book.author}</p>
+          <p className="text-lg mb-2"><strong>Category:</strong> {book.category}</p>
+          <p className="text-lg mb-2"><strong>Quantity:</strong> {book.quantity}</p>
+          <p className="text-lg mb-2"><strong>Rating:</strong> {book.rating}/5</p>
+          <p className="text-lg mb-2">
+            <strong>Description:</strong>{' '}
+            {showFullDescription ? book.description : `${descriptionPreview}...`}
+            <button
+              onClick={() => setShowFullDescription(!showFullDescription)}
+              className="ml-2 text-blue-600 underline hover:text-blue-800"
+            >
+              {showFullDescription ? 'See Less' : 'See More'}
+            </button>
+          </p>
+          {/* Borrow Book Button */}
           <button
-            className="btn btn-primary mt-4"
-            disabled={book.quantity === 0}
-            onClick={() => setIsBorrowing(true)}
+            onClick={handleBorrowBook}
+            className="btn btn-primary px-6 py-2 text-lg font-semibold rounded-md shadow-lg mt-6"
           >
-            Borrow
+            Borrow Book
           </button>
         </div>
       </div>
-
-      {/* Borrow Modal */}
-      {isBorrowing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h3 className="text-xl font-bold mb-4">Borrow Book</h3>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleBorrow();
-              }}
-            >
-              <div className="mb-4">
-                <label className="block mb-2">Name</label>
-                <input
-                  type="text"
-                  value={currentUser.displayName}
-                  className="input input-bordered w-full"
-                  disabled
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-2">Email</label>
-                <input
-                  type="email"
-                  value={currentUser.email}
-                  className="input input-bordered w-full"
-                  disabled
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-2">Return Date</label>
-                <input
-                  type="date"
-                  value={returnDate}
-                  onChange={(e) => setReturnDate(e.target.value)}
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="btn btn-primary mr-2">
-                  Confirm
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setIsBorrowing(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

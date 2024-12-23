@@ -1,18 +1,17 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BookCategories = () => {
   const navigate = useNavigate();
-
   const categories = [
-    { id: 1, name: "Fiction", image: "https://via.placeholder.com/150?text=Fiction" },
-    { id: 2, name: "Science", image: "https://via.placeholder.com/150?text=Science" },
-    { id: 3, name: "History", image: "https://via.placeholder.com/150?text=History" },
-    { id: 4, name: "Technology", image: "https://via.placeholder.com/150?text=Technology" },
+    { id: 1, name: 'Fiction', image: 'https://i.ibb.co/vzRbWLV/Fiction.jpg' },
+    { id: 2, name: 'Science', image: 'https://i.ibb.co/7RWqkkV/Science.jpg' },
+    { id: 3, name: 'History', image: 'https://i.ibb.co/xjV90sg/History.webp' },
+    { id: 4, name: 'Technology', image: 'https://i.ibb.co/0MLwBsj/Technology.jpg' },
   ];
 
-  const handleCategoryClick = (categoryId) => {
-    navigate(`/categories/${categoryId}`);
+  const handleCategoryClick = (categoryName) => {
+    navigate(`/books?type=${categoryName}`);
   };
 
   return (
@@ -23,7 +22,7 @@ const BookCategories = () => {
           <div
             key={category.id}
             className="card bg-base-100 shadow-xl cursor-pointer"
-            onClick={() => handleCategoryClick(category.id)}
+            onClick={() => handleCategoryClick(category.name)}
           >
             <figure>
               <img src={category.image} alt={category.name} className="h-48 w-full object-cover" />

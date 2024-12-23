@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import Lottie from 'lottie-react';
+import Swal from 'sweetalert2';
 import animationData from '../assets/AddBook.json';
 
-const AddBook = () => {
-  const [book, setBook] = useState({
+const AddBook = ({ userEmail }) => {
+  const initialBookState = {
     name: '',
     author: '',
     category: '',
     image: '',
     quantity: 1,
     rating: 0,
-  });
+    description: '',
+    email: userEmail,
+  };
+
+  const [book, setBook] = useState(initialBookState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +25,7 @@ const AddBook = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Adding Book:', book);
+
     // Submit book data to the backend
     fetch('http://localhost:5000/books', {
       method: 'POST',
@@ -31,8 +37,23 @@ const AddBook = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log('Book added successfully', data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Book Added',
+          text: 'Your book has been added successfully!',
+          confirmButtonText: 'OK',
+        });
+        setBook(initialBookState); // Reset the form
       })
-      .catch((err) => console.error('Error adding book:', err));
+      .catch((err) => {
+        console.error('Error adding book:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to Add Book',
+          text: 'There was an error adding the book. Please try again.',
+          confirmButtonText: 'Retry',
+        });
+      });
   };
 
   return (
@@ -110,6 +131,17 @@ const AddBook = () => {
                 step="0.1"
               />
             </div>
+            <div>
+              <label className="label">Description</label>
+              <textarea
+                name="description"
+                value={book.description}
+                onChange={handleChange}
+                className="textarea textarea-bordered w-full"
+                rows="4"
+                placeholder="Provide a brief description of the book"
+              />
+            </div>
             <button type="submit" className="btn btn-primary w-full">
               Add Book
             </button>
@@ -131,3 +163,8 @@ const AddBook = () => {
 };
 
 export default AddBook;
+
+
+
+
+ 

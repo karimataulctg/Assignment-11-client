@@ -1,24 +1,47 @@
-
 import { Link, useNavigate } from "react-router-dom";
-import logo from '../assets/LibraryLogo.png'
+import logo from '../assets/LibraryLogo.png';
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider";
 import { useContext, useState } from "react";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const navigate = useNavigate();
- const {user} = useContext(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSignOut = () => {
-    signOutUser()
-      .then(() => {
-        // alert('You have successfully signed out!');
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(`Error: ${error.message}`);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be signed out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, sign out",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser()
+          .then(() => {
+            Swal.fire({
+              title: "Signed Out",
+              text: "You have been successfully signed out!",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              navigate("/");
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Error",
+              text: `Sign-out failed: ${error.message}`,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          });
+      }
+    });
   };
 
   const toggleMenu = () => {
@@ -27,12 +50,17 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-gray-800 text-white shadow-lg">
+      {/* Navbar Start */}
       <div className="navbar-start flex items-center space-x-2">
         <img src={logo} alt="Logo" className="w-10 h-10" />
-        <Link to="/" className="btn btn-ghost normal-case text-xl text-white hover:text-blue-400">
-          LIBRARY MANAGEMENT SYS.
-         </Link>
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl text-white hover:text-blue-400"
+        >
+          LIBRARY MGMT SYS.
+        </Link>
       </div>
+      {/* Navbar Center */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
@@ -40,14 +68,19 @@ const Navbar = () => {
               Home
             </Link>
           </li>
-          <li></li>
           <li className="dropdown">
-            <Link
-              to="/books"
+            <button
               className="text-white hover:text-blue-400"
+              onClick={() => {
+                if (!user || !user.email) {
+                  navigate("/login");
+                } else {
+                  navigate("/books");
+                }
+              }}
             >
               All Books
-            </Link>
+            </button>
             <ul className="dropdown-content bg-deep-blue text-white shadow-lg rounded-lg">
               <li>
                 <Link to="/books?type=Tourist visa">Tourist Visa</Link>
@@ -74,32 +107,17 @@ const Navbar = () => {
               Add Book
             </button>
           </li>
-
           <li>
             <Link
-              to="/borrowedBook"
+              to="/bookBorrow"
               className="text-white hover:text-blue-400"
             >
               Borrowed Books
             </Link>
           </li>
-          <li>
-            {/* <button
-              className="text-white hover:text-blue-400 py-2"
-              onClick={() => {
-                if (!user || !user.email) {
-                  navigate("/login");
-                } else {
-                  toggleMenu();
-                  navigate("/my-visa-applications"); // Navigate to "My Visa Applications"
-                }
-              }}
-            >
-              My Visa Applications
-            </button> */}
-          </li>
         </ul>
       </div>
+      {/* Navbar End */}
       <div className="navbar-end hidden lg:flex items-center space-x-4">
         {user ? (
           <div className="relative group flex items-center">
@@ -139,7 +157,8 @@ const Navbar = () => {
           </>
         )}
       </div>
-      <div className="lg:hidden flex items-center">
+      {/* Hamburger Menu */}
+      <div className="lg:hidden ml-auto">
         <button onClick={toggleMenu} className="text-white focus:outline-none">
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
@@ -165,31 +184,6 @@ const Navbar = () => {
                 All Books
               </Link>
             </li>
-            <li className="dropdown">
-              <button
-                className="text-white hover:text-blue-400 py-2"
-                onClick={toggleMenu}
-              >
-                Book Types
-              </button>
-              <ul className="dropdown-content bg-deep-blue text-white shadow-lg rounded-lg">
-                <li>
-                  <Link to="/all-visas?type=Tourist visa" onClick={toggleMenu}>
-                    Tourist Visa
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/all-visas?type=Student visa" onClick={toggleMenu}>
-                    Student Visa
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/all-visas?type=Official visa" onClick={toggleMenu}>
-                    Official Visa
-                  </Link>
-                </li>
-              </ul>
-            </li>
             <li>
               <button
                 className="text-white hover:text-blue-400"
@@ -204,30 +198,14 @@ const Navbar = () => {
                 Add Book
               </button>
             </li>
-
             <li>
               <Link
                 to="/borrowedBook"
                 className="text-white hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >
-                Borrowed Books 
+                Borrowed Books
               </Link>
-            </li>
-            <li>
-              {/* <button
-                className="text-white hover:text-blue-400 py-2"
-                onClick={() => {
-                  if (!user || !user.email) {
-                    navigate("/login");
-                  } else {
-                    toggleMenu();
-                    navigate("/my-visa-applications"); // Navigate to "My Visa Applications"
-                  }
-                }}
-              >
-                My Visa Applications
-              </button> */}
             </li>
           </ul>
           <div className="flex items-center mt-4 w-full">
