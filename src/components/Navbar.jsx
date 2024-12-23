@@ -43,20 +43,20 @@ const Navbar = () => {
           <li></li>
           <li className="dropdown">
             <Link
-              to="/all-visas"
+              to="/books"
               className="text-white hover:text-blue-400"
             >
               All Books
             </Link>
             <ul className="dropdown-content bg-deep-blue text-white shadow-lg rounded-lg">
               <li>
-                <Link to="/all-visas?type=Tourist visa">Tourist Visa</Link>
+                <Link to="/books?type=Tourist visa">Tourist Visa</Link>
               </li>
               <li>
-                <Link to="/all-visas?type=Student visa">Student Visa</Link>
+                <Link to="/books?type=Student visa">Student Visa</Link>
               </li>
               <li>
-                <Link to="/all-visas?type=Official visa">Official Visa</Link>
+                <Link to="/books?type=Official visa">Official Visa</Link>
               </li>
             </ul>
           </li>
@@ -67,7 +67,7 @@ const Navbar = () => {
                 if (!user || !user.email) {
                   navigate("/login");
                 } else {
-                  navigate("/add-visa");
+                  navigate("/addBook");
                 }
               }}
             >
@@ -77,7 +77,7 @@ const Navbar = () => {
 
           <li>
             <Link
-              to="/my-added-visas"
+              to="/borrowedBook"
               className="text-white hover:text-blue-400"
             >
               Borrowed Books
@@ -110,7 +110,7 @@ const Navbar = () => {
               alt="User Avatar"
               className="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
             />
-            <div className="hidden group-hover:flex absolute top-8 right-0 bg-white text-deep-blue p-2 rounded shadow-lg w-48">
+            <div className="hidden group-hover:flex absolute top-8 right-0 bg-slate-500 text-white p-2 rounded shadow-lg w-48">
               <span className="block px-4 py-2">
                 {user.displayName || user.email}
               </span>
@@ -158,7 +158,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/all-visas"
+                to="/books"
                 className="text-white hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >
@@ -197,7 +197,7 @@ const Navbar = () => {
                   if (!user || !user.email) {
                     navigate("/login");
                   } else {
-                    navigate("/add-visa");
+                    navigate("/addBook");
                   }
                 }}
               >
@@ -207,7 +207,7 @@ const Navbar = () => {
 
             <li>
               <Link
-                to="/my-added-visas"
+                to="/borrowedBook"
                 className="text-white hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >

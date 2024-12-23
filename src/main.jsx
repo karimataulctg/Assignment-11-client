@@ -11,6 +11,9 @@ import MainLayout from './Layout/MainLayout.jsx';
 import AuthProvider from './AuthProvider.jsx';
 import Login from './mail/Login.jsx';
 import Register from './mail/Register.jsx';
+import PageNotFound from './components/PageNotFound.jsx';
+import AddBook from './pages/AddBook.jsx';
+import Books from './pages/Books.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,9 +27,21 @@ const router = createBrowserRouter([
         },
        {
         path: "register", 
-        element: <Register></Register>
-
+        element: <Register></Register>,
        },
+       {
+        path: '/addBook',
+        element: <AddBook></AddBook>
+       },
+       {
+        path: 'books',
+        element: <Books></Books>
+       },
+       {
+        path: "*",
+       element: <PageNotFound></PageNotFound>,
+       },
+       
     ],
   },
 ]);

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
-    { src: 'https://i.ibb.co.com/VtBsq6m/Library1.webp', alt: "Visa apply from any devices." },
-    { src: 'https://i.ibb.co.com/T4tkwrB/Library2.webp', alt: "Visa apply for family." },
-    { src: 'https://i.ibb.co.com/Nmcb0p9/Library3.webp', alt: "Apply student visa." },
-    { src: 'https://i.ibb.co.com/smmfhB1/Visa-Myself.webp', alt: "Visa apply from home online."},
+    { src: 'https://i.ibb.co.com/VtBsq6m/Library1.webp', alt: "The more you read, the more you will learn." },
+    { src: 'https://i.ibb.co.com/T4tkwrB/Library2.webp', alt: "Books are a uniquely portable magic: — Stephen King" },
+    { src: 'https://i.ibb.co.com/Nmcb0p9/Library3.webp', alt: "Open a Book, Open Your Mind." },
+    { src: 'https://i.ibb.co.com/cCQzqRy/Library4.jpg', alt: "Knowledge Grows on the Bookshelf of Patience."},
     
   ];
 
