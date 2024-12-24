@@ -7,7 +7,8 @@ const Books = () => {
   const navigate = useNavigate();
   const { search } = useLocation(); // Get query parameters from the URL
   const queryParams = new URLSearchParams(search);
-  const categoryType = queryParams.get('type'); // Extract the 'type' parameter
+  const categoryType = queryParams.get('type');
+   // Extract the 'type' parameter
 
   useEffect(() => {
     // Fetch books based on the category (type)
@@ -30,7 +31,13 @@ const Books = () => {
       });
   }, [categoryType]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-5">
