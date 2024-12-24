@@ -109,7 +109,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              to="/bookBorrow"
+              to="/borrowedBooks"
               className="text-white hover:text-blue-400"
             >
               Borrowed Books
@@ -200,7 +200,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/borrowedBook"
+                to="/borrowedBooks"
                 className="text-white hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >
