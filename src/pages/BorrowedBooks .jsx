@@ -86,16 +86,16 @@ const BorrowedBooks = () => {
   return (
     <div className="container mx-auto py-10">
       <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Borrowed Books</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {borrowedBooks.map((book) => (
           <div
             key={book._id}
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
+            className="bg-white rounded-lg border-2 shadow-lg p-6 flex flex-col justify-between"
           >
             <img
               src={book.image}
               alt={book.name}
-              className="rounded-lg shadow-md w-full h-48 object-cover mb-4"
+              className="rounded-lg shadow-md w-full h-48 object-cover mb-4 border-2"
             />
             <h3 className="text-2xl font-semibold mb-2 text-gray-800">{book.name}</h3>
             <p className="text-lg mb-1">

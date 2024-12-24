@@ -13,7 +13,7 @@ const BookDetails = () => {
 
   useEffect(() => {
     if (!bookId || !user) return; // Add a check for user
-  
+
     // Fetch book details
     fetch(`http://localhost:5000/books/${bookId}`)
       .then((res) => {
@@ -23,7 +23,7 @@ const BookDetails = () => {
       .then((data) => {
         setBook(data);
         setLoading(false);
-  
+
         // Check if the user has already borrowed the book
         const hasBorrowed = data.borrowedUsers?.some(
           (borrowedUser) => borrowedUser.email === user.email
@@ -40,7 +40,6 @@ const BookDetails = () => {
         setLoading(false);
       });
   }, [bookId, user]); // Include `user` in dependencies
-  
 
   const handleBorrowBook = () => {
     if (book.quantity === 0) {
@@ -56,12 +55,23 @@ const BookDetails = () => {
 
   const handleModalSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const returnDate = formData.get("returnDate");
+    const borrowedDate = new Date().toISOString().split("T")[0]; // Use current date as borrowed date
 
     try {
       const updatedBook = {
         ...book,
         quantity: book.quantity - 1,
-        borrowedUsers: [...(book.borrowedUsers || []), { name: user.name, email: user.email }],
+        borrowedUsers: [
+          ...(book.borrowedUsers || []),
+          {
+            name: user.displayName,
+            email: user.email,
+            borrowedDate,
+            returnDate,
+          },
+        ],
       };
 
       const response = await fetch(`http://localhost:5000/books/${book._id}`, {
@@ -104,16 +114,32 @@ const BookDetails = () => {
   return (
     <div className="container mx-auto py-10">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">{book.name}</h2>
+        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
+          {book.name}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <div className="flex justify-center">
-            <img src={book.image} alt={book.name} className="rounded-lg shadow-md max-w-full md:max-w-xs" />
+            <img
+              src={book.image}
+              alt={book.name}
+              className="rounded-lg shadow-md max-w-full md:max-w-xs"
+            />
           </div>
           <div className="text-gray-700">
-            <p className="text-lg mb-4"><strong className="text-gray-900">Author:</strong> {book.author}</p>
-            <p className="text-lg mb-4"><strong className="text-gray-900">Category:</strong> {book.category}</p>
-            <p className="text-lg mb-4"><strong className="text-gray-900">Quantity:</strong> {book.quantity}</p>
-            <p className="text-lg mb-4"><strong className="text-gray-900">Rating:</strong> {book.rating}/5</p>
+            <p className="text-lg mb-4">
+              <strong className="text-gray-900">Author:</strong> {book.author}
+            </p>
+            <p className="text-lg mb-4">
+              <strong className="text-gray-900">Category:</strong>{" "}
+              {book.category}
+            </p>
+            <p className="text-lg mb-4">
+              <strong className="text-gray-900">Quantity:</strong>{" "}
+              {book.quantity}
+            </p>
+            <p className="text-lg mb-4">
+              <strong className="text-gray-900">Rating:</strong> {book.rating}/5
+            </p>
             <p className="text-lg mb-4">
               <strong className="text-gray-900">Description:</strong>{" "}
               {descriptionPreview}...
@@ -140,21 +166,43 @@ const BookDetails = () => {
             <form onSubmit={handleModalSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-700 mb-2">Name</label>
-                <input type="text" value={user.displayName} readOnly className="w-full p-2 border rounded-md" />
+                <input
+                  type="text"
+                  value={user.displayName}
+                  readOnly
+                  className="w-full p-2 border rounded-md"
+                />
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700 mb-2">Email</label>
-                <input type="email" value={user.email} readOnly className="w-full p-2 border rounded-md" />
+                <input
+                  type="email"
+                  value={user.email}
+                  readOnly
+                  className="w-full p-2 border rounded-md"
+                />
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700 mb-2">Return Date</label>
-                <input type="date" required className="w-full p-2 border rounded-md" />
+                <input
+                  type="date"
+                  name="returnDate"
+                  required
+                  className="w-full p-2 border rounded-md"
+                />
               </div>
               <div className="flex space-x-4">
-                <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-md shadow-lg hover:bg-blue-700">
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-md shadow-lg hover:bg-blue-700"
+                >
                   Submit
                 </button>
-                <button type="button" onClick={() => setIsModalOpen(false)} className="bg-red-500 text-white px-6 py-2 rounded-md shadow-lg hover:bg-red-600">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="bg-red-500 text-white px-6 py-2 rounded-md shadow-lg hover:bg-red-600"
+                >
                   Cancel
                 </button>
               </div>

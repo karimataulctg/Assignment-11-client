@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from '../assets/LibraryLogo.png';
+import logo from "../assets/LibraryLogo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider";
 import { useContext, useState } from "react";
@@ -64,13 +64,16 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/" className="text-white hover:text-blue-400">
+            <Link
+              to="/"
+              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+            >
               Home
             </Link>
           </li>
-          <li className="dropdown">
+          <li className="dropdown relative group">
             <button
-              className="text-white hover:text-blue-400"
+              className="flex items-center text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
               onClick={() => {
                 if (!user || !user.email) {
                   navigate("/login");
@@ -80,22 +83,59 @@ const Navbar = () => {
               }}
             >
               All Books
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 ml-2 transition-transform group-hover:rotate-180"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </button>
-            <ul className="dropdown-content bg-deep-blue text-white shadow-lg rounded-lg">
-              <li>
-                <Link to="/books?type=Tourist visa">Tourist Visa</Link>
+            <ul className="absolute hidden group-hover:block z-10 mt-2 bg-gray-600 text-white shadow-lg rounded-lg">
+              <li className="px-4 py-2 hover:bg-gray-700">
+                <Link
+                  to="/books?type=Tourist visa"
+                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+                >
+                  Fiction
+                </Link>
               </li>
-              <li>
-                <Link to="/books?type=Student visa">Student Visa</Link>
+              <li className="px-4 py-2 hover:bg-gray-700">
+                <Link
+                  to="/books?type=Student visa"
+                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+                >
+                  Science
+                </Link>
               </li>
-              <li>
-                <Link to="/books?type=Official visa">Official Visa</Link>
+              <li className="px-4 py-2 hover:bg-gray-700">
+                <Link
+                  to="/books?type=Official visa"
+                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+                >
+                  History
+                </Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-700">
+                <Link
+                  to="/books?type=Official visa"
+                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+                >
+                  Technology
+                </Link>
               </li>
             </ul>
           </li>
           <li>
             <button
-              className="text-white hover:text-blue-400"
+              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
               onClick={() => {
                 if (!user || !user.email) {
                   navigate("/login");
@@ -110,7 +150,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/borrowedBooks"
-              className="text-white hover:text-blue-400"
+              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
             >
               Borrowed Books
             </Link>
@@ -128,12 +168,10 @@ const Navbar = () => {
               alt="User Avatar"
               className="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
             />
-            <div className="hidden group-hover:flex absolute top-8 right-0 bg-slate-500 text-white p-2 rounded shadow-lg w-48">
-              <span className="block px-4 py-2">
-                {user.displayName || user.email}
-              </span>
+            <div className="hidden group-hover:flex items-center absolute top-8 right-0 bg-slate-500 z-10 text-white p-2 rounded shadow-lg w-48">
+              <span className="block ">{user.displayName || user.email}</span>
               <button
-                className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 rounded mt-2"
+                className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 btn rounded mt-2"
                 onClick={handleSignOut}
               >
                 Log Out
@@ -164,7 +202,7 @@ const Navbar = () => {
         </button>
       </div>
       {isMenuOpen && (
-        <div className="lg:hidden flex flex-col items-start bg-deep-blue text-white p-4 absolute top-16 left-0 right-0 z-10 shadow-lg">
+        <div className="lg:hidden flex flex-col items-start bg-gray-800  text-white absolute top-20 left-8 right-8 z-10 shadow-lg">
           <ul className="menu flex flex-col w-full">
             <li>
               <Link
@@ -218,7 +256,7 @@ const Navbar = () => {
                 />
                 <span className="mr-2">{user.displayName || user.email}</span>
                 <button
-                  className="bg-slate-700 hover:bg-slate-950 text-white px-1 py-1 rounded w-full"
+                  className="bg-slate-700 hover:bg-slate-950 text-white px-1 py-1 rounded "
                   onClick={handleSignOut}
                 >
                   Log Out
