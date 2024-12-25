@@ -74,9 +74,7 @@ const Books = () => {
       {/* Filter and View Mode Buttons */}
       <div className="flex justify-between items-center mb-6">
         <button
-          className={`btn ${
-            showAvailable ? "btn-secondary" : "btn-primary"
-          }`}
+          className={`btn ${showAvailable ? "btn-secondary" : "btn-primary"}`}
           onClick={handleFilterToggle}
         >
           {showAvailable ? "Show All Books" : "Show Available Books"}
@@ -113,6 +111,18 @@ const Books = () => {
                   <p className="text-gray-600">Author: {book.author}</p>
                   <p className="text-gray-600">Category: {book.category}</p>
                   <p className="text-gray-600">Quantity: {book.quantity}</p>
+                  <div className="flex items-center justify-center mb-4">
+                    <span className="text-yellow-500 text-lg">
+                      {"⭐".repeat(Math.floor(Number(book.rating) || 0))}
+                    </span>
+                    <span className="ml-2 text-gray-500">
+                      (
+                      {Number(book.rating)
+                        ? Number(book.rating).toFixed(1)
+                        : "N/A"}
+                      )
+                    </span>
+                  </div>
                   <button
                     onClick={() => navigate(`/bookDetails/${book._id}`)}
                     className="btn btn-primary w-full"

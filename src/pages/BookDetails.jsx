@@ -137,9 +137,14 @@ const BookDetails = () => {
               <strong className="text-gray-900">Quantity:</strong>{" "}
               {book.quantity}
             </p>
-            <p className="text-lg mb-4">
-              <strong className="text-gray-900">Rating:</strong> {book.rating}/5
-            </p>
+            <div className="flex items-center justify-center mb-4">
+              <span className="text-yellow-500 text-lg">
+                {"⭐".repeat(Math.floor(Number(book.rating) || 0))}
+              </span>
+              <span className="ml-2 text-gray-500">
+                ({Number(book.rating) ? Number(book.rating).toFixed(1) : "N/A"})
+              </span>
+            </div>
             <p className="text-lg mb-4">
               <strong className="text-gray-900">Description:</strong>{" "}
               {descriptionPreview}...

@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthProvider";
 
 const FeaturesBook = () => {
-   
-const [books, setBooks] = useState([]);
-const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const [books, setBooks] = useState([]);
+  const navigate = useNavigate();
 
-// Fetching books from API
+  // Fetching books from API
   useEffect(() => {
     fetch("http://localhost:5000/books")
-     .then((res) => res.json())
-     .then((data) => {
+      .then((res) => res.json())
+      .then((data) => {
         const latestBooks = data.slice(-6).reverse();
         setBooks(latestBooks);
-     });
+      });
   }, []);
+
   return (
     <div>
       <section className="bg-blue-50 py-10">
@@ -24,7 +26,7 @@ const navigate = useNavigate();
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {books.map((book) => (
-              <div key={book.id} className="bg-white rounded-lg shadow-md p-4">
+              <div key={book._id} className="bg-white rounded-lg shadow-md p-4">
                 <img
                   src={book.image}
                   alt={book.name}
@@ -34,10 +36,16 @@ const navigate = useNavigate();
                   {book.name}
                 </h3>
                 <p className="text-gray-600">{book.author}</p>
-                <button 
-                
-                onClick={() => navigate(`/bookDetails/${book._id}`)}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button
+                  onClick={() => {
+                    if (!user || !user.email) {
+                      navigate("/login");
+                    } else {
+                      navigate(`/bookDetails/${book._id}`);
+                    }
+                  }}
+                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
                   View Details
                 </button>
               </div>

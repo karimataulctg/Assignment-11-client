@@ -31,7 +31,7 @@ const Login = () => {
       .catch((error) =>
         Swal.fire({
           title: "Login Failed",
-          text: error.message,
+          text: "Register first",
           icon: "error",
           confirmButtonText: "Try Again",
         })

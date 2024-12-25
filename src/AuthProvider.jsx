@@ -68,6 +68,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      console.log('State Captured', currentUser.email);
       setIsAuthLoading(false); // Auth state is loaded
     });
 

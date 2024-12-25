@@ -48,7 +48,7 @@ const Slider = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
             />
-            <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-4 w-full">
+            <div className="flex justify-start absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-4 w-full">
               <p>{image.alt}</p>
             </div>
           </div>
