@@ -35,6 +35,7 @@ const navigate = useNavigate();
                 </h3>
                 <p className="text-gray-600">{book.author}</p>
                 <button 
+                
                 onClick={() => navigate(`/bookDetails/${book._id}`)}
                 className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                   View Details

@@ -83,55 +83,9 @@ const Navbar = () => {
               }}
             >
               All Books
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-2 transition-transform group-hover:rotate-180"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+            
             </button>
-            <ul className="absolute hidden group-hover:block z-10 mt-2 bg-gray-600 text-white shadow-lg rounded-lg">
-              <li className="px-4 py-2 hover:bg-gray-700">
-                <Link
-                  to="/books?type=Tourist visa"
-                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-                >
-                  Fiction
-                </Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-700">
-                <Link
-                  to="/books?type=Student visa"
-                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-                >
-                  Science
-                </Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-700">
-                <Link
-                  to="/books?type=Official visa"
-                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-                >
-                  History
-                </Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-700">
-                <Link
-                  to="/books?type=Official visa"
-                  className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-                >
-                  Technology
-                </Link>
-              </li>
-            </ul>
+            
           </li>
           <li>
             <button
@@ -202,7 +156,7 @@ const Navbar = () => {
         </button>
       </div>
       {isMenuOpen && (
-        <div className="lg:hidden flex flex-col items-start bg-gray-800  text-white absolute top-20 left-8 right-8 z-10 shadow-lg">
+        <div className="lg:hidden flex flex-col items-start bg-gray-800 p-2  text-white absolute top-20 left-8 right-8 z-10 shadow-lg">
           <ul className="menu flex flex-col w-full">
             <li>
               <Link
