@@ -9,7 +9,7 @@ const FeaturesBook = () => {
 
   // Fetching books from API
   useEffect(() => {
-    fetch("http://localhost:5000/books")
+    fetch("https://library-server-green.vercel.app/books")
       .then((res) => res.json())
       .then((data) => {
         const latestBooks = data.slice(-6).reverse();

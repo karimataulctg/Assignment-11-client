@@ -16,8 +16,8 @@ const Books = () => {
 
   useEffect(() => {
     const url = categoryType
-      ? `http://localhost:5000/books?category=${categoryType}`
-      : "http://localhost:5000/books";
+      ? `https://library-server-green.vercel.app/books?category=${categoryType}`
+      : "https://library-server-green.vercel.app/books";
 
     fetch(url)
       .then((res) => {

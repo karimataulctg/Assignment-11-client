@@ -13,7 +13,7 @@ const BookBorrow = ({ book }) => {
     if (!currentUser) return;
   
     // Fetch borrowing status for the current user and book
-    fetch(`http://localhost:5000/books/borrow-status/${book._id}?userId=${currentUser.uid}`)
+    fetch(`https://library-server-green.vercel.app/books/borrow-status/${book._id}?userId=${currentUser.uid}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Borrow status:", data); // Log the response for debugging
@@ -47,7 +47,7 @@ const BookBorrow = ({ book }) => {
       return;
     }
 
-    fetch(`http://localhost:5000/books/borrow/${book._id}`, {
+    fetch(`https://library-server-green.vercel.app/books/borrow/${book._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

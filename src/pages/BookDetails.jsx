@@ -15,7 +15,7 @@ const BookDetails = () => {
     if (!bookId || !user) return; // Add a check for user
 
     // Fetch book details
-    fetch(`http://localhost:5000/books/${bookId}`)
+    fetch(`https://library-server-green.vercel.app/books/${bookId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch book details");
         return res.json();
@@ -74,7 +74,7 @@ const BookDetails = () => {
         ],
       };
 
-      const response = await fetch(`http://localhost:5000/books/${book._id}`, {
+      const response = await fetch(`https://library-server-green.vercel.app/books/${book._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

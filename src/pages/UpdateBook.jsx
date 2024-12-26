@@ -8,7 +8,7 @@ const UpdateBook = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/books/${id}`)
+    fetch(`https://library-server-green.vercel.app/books/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBook(data);
@@ -19,7 +19,7 @@ const UpdateBook = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/books/${id}`, {
+    fetch(`https://library-server-green.vercel.app/books/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ const CategoryBooks = () => {
   useEffect(() => {
     if (!categoryId) return;
 
-    fetch(`http://localhost:5000/books?category=${categoryId}`)
+    fetch(`https://library-server-green.vercel.app/books?category=${categoryId}`)
       .then((res) => res.json())
       .then((data) => {
         setBooks(data);
