@@ -21,6 +21,16 @@ const BorrowedBooks = () => {
         const userBorrowedBooks = data.filter((book) =>
           book.borrowedUsers?.some((borrower) => borrower.email === user.email)
         );
+
+        // Check if user has borrowed more than three books
+        if (userBorrowedBooks.length > 3) {
+          Swal.fire({
+            icon: "warning",
+            title: "Borrowing Limit Exceeded",
+            text: "You cannot borrow more than 3 books.",
+          });
+        }
+
         setBorrowedBooks(userBorrowedBooks);
         setLoading(false);
       })
@@ -48,13 +58,16 @@ const BorrowedBooks = () => {
         borrowedUsers: updatedBorrowedUsers,
       };
 
-      const response = await fetch(`https://library-server-green.vercel.app/books/${book._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedBook),
-      });
+      const response = await fetch(
+        `https://library-server-green.vercel.app/books/${book._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedBook),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update book details");
@@ -85,7 +98,9 @@ const BorrowedBooks = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Borrowed Books</h2>
+      <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">
+        Borrowed Books
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {borrowedBooks.map((book) => (
           <div
@@ -97,7 +112,9 @@ const BorrowedBooks = () => {
               alt={book.name}
               className="rounded-lg shadow-md w-full h-48 object-cover mb-4 border-2"
             />
-            <h3 className="text-2xl font-semibold mb-2 text-gray-800">{book.name}</h3>
+            <h3 className="text-2xl font-semibold mb-2 text-gray-800">
+              {book.name}
+            </h3>
             <p className="text-lg mb-1">
               <strong className="text-gray-900">Category:</strong> {book.category}
             </p>
