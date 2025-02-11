@@ -131,7 +131,7 @@ const Books = () => {
                   </button>
                   <button
                     onClick={() => setSelectedBook(book)}
-                    className="btn btn-secondary w-full mt-2"
+                    className="btn bg-yellow-500 w-full mt-2"
                   >
                     Update Details
                   </button>
@@ -179,7 +179,7 @@ const Books = () => {
                       </button>
                       <button
                         onClick={() => setSelectedBook(book)}
-                        className="btn btn-sm btn-secondary ml-2"
+                        className="btn btn-sm bg-yellow-500 ml-2"
                       >
                         Update
                       </button>

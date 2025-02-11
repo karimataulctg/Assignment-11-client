@@ -44,7 +44,7 @@ const FeaturesBook = () => {
                       navigate(`/bookDetails/${book._id}`);
                     }
                   }}
-                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  className="mt-4 px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600"
                 >
                   View Details
                 </button>
