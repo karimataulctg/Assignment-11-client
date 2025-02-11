@@ -11,10 +11,12 @@ import DynamicTitle from '../components/DynamicTitle';
 const MainLayout = () => {
     return (
         <div>
-            <Navbar></Navbar>
-            <DynamicTitle></DynamicTitle>
-            <Outlet></Outlet>
-            <Footer></Footer>
+            <div className="mb-10">
+                <Navbar />
+            </div>
+            <DynamicTitle />
+            <Outlet />
+            <Footer />
         </div>
     );
 };

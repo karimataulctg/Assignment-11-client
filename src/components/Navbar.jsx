@@ -49,9 +49,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-gray-800 text-white shadow-lg">
+    <div className="navbar w-full bg-gray-800 text-white shadow-md fixed top-0 left-0 z-50 opacity-90">
       {/* Navbar Start */}
-      <div className="navbar-start flex items-center space-x-2">
+      <div className="navbar-start flex items-center space-x-2 ml-4">
         <img src={logo} alt="Logo" className="w-10 h-10" />
         <Link
           to="/"
@@ -60,43 +60,31 @@ const Navbar = () => {
           LIBRARY MGMT SYS.
         </Link>
       </div>
+
       {/* Navbar Center */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link
-              to="/"
-              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-            >
+            <Link to="/" className="text-white hover:text-blue-400">
               Home
             </Link>
           </li>
-          <li className="dropdown relative group">
+          <li>
             <button
-              className="flex items-center text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-              onClick={() => {
-                if (!user || !user.email) {
-                  navigate("/login");
-                } else {
-                  navigate("/books");
-                }
-              }}
+              className="text-white hover:text-blue-400"
+              onClick={() =>
+                !user || !user.email ? navigate("/login") : navigate("/books")
+              }
             >
               All Books
-            
             </button>
-            
           </li>
           <li>
             <button
-              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
-              onClick={() => {
-                if (!user || !user.email) {
-                  navigate("/login");
-                } else {
-                  navigate("/addBook");
-                }
-              }}
+              className="text-white hover:text-blue-400"
+              onClick={() =>
+                !user || !user.email ? navigate("/login") : navigate("/addBook")
+              }
             >
               Add Book
             </button>
@@ -104,15 +92,16 @@ const Navbar = () => {
           <li>
             <Link
               to="/borrowedBooks"
-              className="text-white hover:text-blue-400 focus:text-white active:text-white visited:text-white"
+              className="text-white hover:text-blue-400"
             >
               Borrowed Books
             </Link>
           </li>
         </ul>
       </div>
+
       {/* Navbar End */}
-      <div className="navbar-end hidden lg:flex items-center space-x-4">
+      <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
         {user ? (
           <div className="relative group flex items-center">
             <img
@@ -122,10 +111,10 @@ const Navbar = () => {
               alt="User Avatar"
               className="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
             />
-            <div className="hidden group-hover:flex items-center absolute top-8 right-0 bg-slate-500 z-10 text-white p-2 rounded shadow-lg w-48">
-              <span className="block ">{user.displayName || user.email}</span>
+            <div className="hidden group-hover:flex flex-col absolute top-12 right-0 bg-gray-700 z-10 text-white p-2 rounded shadow-lg w-48">
+              <span className="block">{user.displayName || user.email}</span>
               <button
-                className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 btn rounded mt-2"
+                className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 rounded mt-2"
                 onClick={handleSignOut}
               >
                 Log Out
@@ -135,13 +124,13 @@ const Navbar = () => {
         ) : (
           <>
             <Link
-              className="bg-sunflower-yellow hover:bg-dark-sunflower-yellow text-deep-blue px-4 py-1 rounded"
+              className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-1 rounded"
               to="/login"
             >
               Log In
             </Link>
             <Link
-              className="bg-sunflower-yellow hover:bg-dark-sunflower-yellow text-deep-blue px-4 py-1 rounded"
+              className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-1 rounded"
               to="/register"
             >
               Register
@@ -149,6 +138,7 @@ const Navbar = () => {
           </>
         )}
       </div>
+
       {/* Hamburger Menu */}
       <div className="lg:hidden ml-auto">
         <button onClick={toggleMenu} className="text-white focus:outline-none">
