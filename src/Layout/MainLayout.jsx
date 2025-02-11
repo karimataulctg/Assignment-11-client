@@ -11,7 +11,7 @@ import DynamicTitle from '../components/DynamicTitle';
 const MainLayout = () => {
     return (
         <div>
-            <div className="mb-10">
+            <div className="mb-20">
                 <Navbar />
             </div>
             <DynamicTitle />

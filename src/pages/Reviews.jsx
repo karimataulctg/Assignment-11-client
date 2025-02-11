@@ -13,17 +13,17 @@ const Reviews = () => {
   };
 
   return (
-    <div className="container bg-white mx-auto py-6">
+    <div className=" container bg-white mx-auto py-6 rounded-2xl m-4">
       <h2 className="text-2xl font-bold mb-4">User Reviews & Ratings</h2>
       <div className="mb-4">
         <textarea
-          className="w-full p-2 border rounded mb-2"
+          className="w-11/12 p-2 border rounded mb-2"
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="Write your review..."
         />
         <select
-          className="w-full p-2 border rounded mb-2"
+          className="w-11/12 p-2 border rounded mb-2"
           value={rating}
           onChange={(e) => setRating(e.target.value)}
         >

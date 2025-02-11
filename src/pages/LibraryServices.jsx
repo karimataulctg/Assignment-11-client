@@ -53,7 +53,7 @@ const LibraryServices = () => {
           ].map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md text-center"
+              className="bg-white p-6 rounded-2xl shadow-md text-center"
               variants={cardVariants}
             >
               <h3 className="text-xl font-semibold text-gray-700 mb-3">
