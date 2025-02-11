@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import logo from '../assets/LibraryLogo.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -17,7 +18,13 @@ const Footer = () => {
           
           {/* Logo Section */}
           <div className="w-full sm:w-1/3 flex flex-col items-center mb-6 sm:mb-0">
-            <img src={logo} alt="Library Logo" className="h-16 mb-2" />
+            
+            <Link
+          to="/"
+          
+        >
+          <img src={logo} alt="Library Logo" className="h-16 mb-2" />
+        </Link>
             <h1 className="text-xl font-bold">Library Management System</h1>
           </div>
           

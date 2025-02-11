@@ -52,7 +52,13 @@ const Navbar = () => {
     <div className="navbar w-full bg-gray-800 text-white shadow-md fixed top-0 left-0 z-50 opacity-90">
       {/* Navbar Start */}
       <div className="navbar-start flex items-center space-x-2 ml-4">
-        <img src={logo} alt="Logo" className="w-10 h-10" />
+      <Link
+          to="/"
+          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl text-white hover:text-blue-400"
+        >
+           <img src={logo} alt="Logo" className="w-10 h-10" />
+        </Link>
+       
         <Link
           to="/"
           className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl text-white hover:text-blue-400"
