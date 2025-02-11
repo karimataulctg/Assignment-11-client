@@ -25,7 +25,7 @@ const CategoryBooks = () => {
   if (!books.length) return <div>No books available in this category.</div>;
 
   return (
-    <div className="container  mx-auto py-10">
+    <div className="container bg-blue-50  mx-auto py-10">
       <h2 className="text-3xl font-bold mb-6">Books in Category {categoryId}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {books.map((book) => (

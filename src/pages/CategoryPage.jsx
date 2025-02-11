@@ -30,7 +30,7 @@ const CategoryPage = () => {
   const filteredBooks = books.filter((book) => book.categoryId === Number(categoryId));
 
   return (
-    <div className="bg-gray-100 py-10 container mx-auto">
+    <div className=" py-10 container mx-auto">
       <h2 className="text-3xl font-bold text-center mb-6">
         Books in Category: {filteredBooks[0]?.category || "Unknown"}
       </h2>
