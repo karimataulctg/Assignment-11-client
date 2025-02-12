@@ -7,10 +7,11 @@ const Books = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
-  const [showAvailable, setShowAvailable] = useState(false); // Toggle for filtering
-  const [viewMode, setViewMode] = useState("card"); // View mode: "card" or "table"
+  const [showAvailable, setShowAvailable] = useState(false);
+  const [viewMode, setViewMode] = useState("card");
+  const [sortOrder, setSortOrder] = useState("default"); // New state for sorting
   const navigate = useNavigate();
-  const { search } = useLocation(); // Get query parameters from the URL
+  const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const categoryType = queryParams.get("type");
 
@@ -44,17 +45,18 @@ const Books = () => {
     }
   };
 
-  const handleUpdate = (updatedBook) => {
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book._id === updatedBook._id ? updatedBook : book
-      )
-    );
-    setFilteredBooks((prevFiltered) =>
-      prevFiltered.map((book) =>
-        book._id === updatedBook._id ? updatedBook : book
-      )
-    );
+  // Sorting Function
+  const handleSort = (order) => {
+    setSortOrder(order);
+    let sortedBooks = [...filteredBooks];
+
+    if (order === "asc") {
+      sortedBooks.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (order === "desc") {
+      sortedBooks.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    setFilteredBooks(sortedBooks);
   };
 
   if (loading) {
@@ -66,13 +68,13 @@ const Books = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-5">
+    <div className="min-h-screen bg-blue-50 dark:bg-gray-900 dark:text-white p-5 transition duration-300">
       <h1 className="text-3xl font-bold text-center mb-8">
         {categoryType ? `Books in ${categoryType} Category` : "All Books"}
       </h1>
 
-      {/* Filter and View Mode Buttons */}
-      <div className="flex justify-between items-center mb-6">
+      {/* Controls: Filter, View Mode, Sorting */}
+      <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
         <button
           className={`btn ${showAvailable ? "btn-secondary" : "btn-primary"}`}
           onClick={handleFilterToggle}
@@ -81,12 +83,22 @@ const Books = () => {
         </button>
 
         <select
-          className="select select-bordered w-48"
+          className="select select-bordered w-48 dark:bg-gray-800 dark:text-white"
           value={viewMode}
           onChange={(e) => setViewMode(e.target.value)}
         >
           <option value="card">Card View</option>
           <option value="table">Table View</option>
+        </select>
+
+        <select
+          className="select select-bordered w-48 dark:bg-gray-800 dark:text-white"
+          value={sortOrder}
+          onChange={(e) => handleSort(e.target.value)}
+        >
+          <option value="default">Sort by Name</option>
+          <option value="asc">A - Z</option>
+          <option value="desc">Z - A</option>
         </select>
       </div>
 
@@ -97,7 +109,7 @@ const Books = () => {
             filteredBooks.map((book) => (
               <div
                 key={book._id}
-                className="card bg-white shadow-md hover:shadow-lg transition"
+                className="card bg-white dark:bg-gray-800 dark:text-white shadow-md hover:shadow-lg transition"
               >
                 <figure>
                   <img
@@ -108,21 +120,9 @@ const Books = () => {
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">{book.name}</h2>
-                  <p className="text-gray-600">Author: {book.author}</p>
-                  <p className="text-gray-600">Category: {book.category}</p>
-                  <p className="text-gray-600">Quantity: {book.quantity}</p>
-                  <div className="flex items-center justify-center mb-4">
-                    <span className="text-yellow-500 text-lg">
-                      {"⭐".repeat(Math.floor(Number(book.rating) || 0))}
-                    </span>
-                    <span className="ml-2 text-gray-500">
-                      (
-                      {Number(book.rating)
-                        ? Number(book.rating).toFixed(1)
-                        : "N/A"}
-                      )
-                    </span>
-                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">Author: {book.author}</p>
+                  <p className="text-gray-600 dark:text-gray-300">Category: {book.category}</p>
+                  <p className="text-gray-600 dark:text-gray-300">Quantity: {book.quantity}</p>
                   <button
                     onClick={() => navigate(`/bookDetails/${book._id}`)}
                     className="btn btn-primary w-full"
@@ -201,7 +201,14 @@ const Books = () => {
       {selectedBook && (
         <UpdateBookModal
           book={selectedBook}
-          onUpdate={handleUpdate}
+          onUpdate={(updatedBook) => {
+            setBooks((prev) =>
+              prev.map((book) => (book._id === updatedBook._id ? updatedBook : book))
+            );
+            setFilteredBooks((prev) =>
+              prev.map((book) => (book._id === updatedBook._id ? updatedBook : book))
+            );
+          }}
           onClose={() => setSelectedBook(null)}
         />
       )}

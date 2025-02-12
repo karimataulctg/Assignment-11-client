@@ -39,7 +39,7 @@ const Reviews = () => {
           ))}
         </select>
         <button
-          className="bg-yellow-500 text-black px-4 py-2 rounded mt-2"
+          className="bg-yellow-500 text-black px-4 py-2 rounded mt"
           onClick={addReview}
         >
           Submit Review

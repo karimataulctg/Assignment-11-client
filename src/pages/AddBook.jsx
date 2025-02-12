@@ -57,11 +57,11 @@ const AddBook = ({ userEmail }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 my-8">
+    <div className="flex justify-center items-center min-h-screen bg-blue-50 my-8">
       <div className="flex flex-col md:flex-row bg-white shadow-lg p-5 md:w-4/5 py-4 my-8">
         {/* Form Section */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-2xl font-bold mb-4">Add New Book</h2>
+          <h2 className="text-2xl text-center font-bold mb-4">Add New Book</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">Book Name</label>

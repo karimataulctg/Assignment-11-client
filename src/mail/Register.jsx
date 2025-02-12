@@ -104,11 +104,12 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-base-200 min-h-screen flex items-center justify-center">
+    <div className="bg-blue-50  flex items-center justify-center">
       <div className="hero-content flex-col lg:flex-row items-center gap-10 w-full max-w-5xl">
         <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
           <form onSubmit={handleRegister} className="card-body">
             <div className="form-control">
+            <h1 className="text-center text-2xl font-bold">Register</h1>
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
@@ -166,13 +167,15 @@ const Register = () => {
                 {error}
               </div>
             )}
+            <div className="flex flex-col space-y-2 justify-center items-center">
             <div className="form-control mt-6">
-              <button className="btn btn-primary bg-blue-600 hover:bg-blue-700">Register</button>
+              <button className="btn btn-wide bg-blue-600 hover:bg-blue-700">Register</button>
             </div>
             <div>
-              <button type="button" onClick={handleGoogleSignIn} className="btn btn-wide">
+              <button type="button " onClick={handleGoogleSignIn} className="btn bg-yellow-500 btn-wide">
                 Register with Google
               </button>
+            </div>
             </div>
           </form>
           <div className="p-4">

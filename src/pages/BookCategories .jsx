@@ -21,7 +21,7 @@ const BookCategories = () => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className="card bg-base-100 shadow-lg cursor-pointer"
+            className="card bg-base-100 shadow-xl cursor-pointer"
             onClick={() => handleCategoryClick(category.name)}
           >
             <figure>

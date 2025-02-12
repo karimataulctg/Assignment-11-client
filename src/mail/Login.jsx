@@ -69,12 +69,13 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-base-200 min-h-screen flex items-center justify-center">
+    <div className="bg-blue-50 min-h-screen flex items-center justify-center">
       <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 w-full max-w-5xl">
         {/* Login Form */}
         <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
+            <h1 className="text-center text-2xl font-bold">Login</h1>
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
@@ -95,11 +96,13 @@ const Login = () => {
                 </a>
               </label>
             </div>
+            <div className="flex flex-col space-y-2 justify-center items-center">
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">Login</button>
+              <button type="submit" className="btn btn-wide bg-blue-600 hover:bg-blue-700">Login</button>
             </div>
             <div className="form-control mt-6">
-              <button type="button" className="btn btn-ghost" onClick={handleGoogleLogin}>Login with Google</button>
+              <button type="button" className="btn bg-yellow-500 btn-wide" onClick={handleGoogleLogin}>Login with Google</button>
+            </div>
             </div>
           </form>
           <div className="p-4">

@@ -80,11 +80,17 @@ const BorrowedBooks = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-lg"></span>
+      </div>
+    );
+  }
   if (!borrowedBooks.length) return <div>No borrowed books found.</div>;
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container bg-blue-50 mx-auto py-10">
       <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">Borrowed Books</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {borrowedBooks.map((book) => (

@@ -106,7 +106,13 @@ const BookDetails = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-lg"></span>
+      </div>
+    );
+  }
   if (!book) return <div>No book details available.</div>;
 
   const descriptionPreview = book.description.split(" ").slice(0, 30).join(" ");
