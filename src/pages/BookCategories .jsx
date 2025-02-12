@@ -15,13 +15,13 @@ const BookCategories = () => {
   };
 
   return (
-    <div className=" bg-blue-50 py-10">
+    <div className="w-11/12 mx-auto bg-blue-50 pt-10">
       <h2 className="text-3xl font-bold text-center mb-6">Book Categories</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 container mx-auto">
         {categories.map((category) => (
           <div
             key={category.id}
-            className="card bg-base-100 shadow-xl cursor-pointer"
+            className="card bg-base-100 shadow-lg cursor-pointer"
             onClick={() => handleCategoryClick(category.name)}
           >
             <figure>

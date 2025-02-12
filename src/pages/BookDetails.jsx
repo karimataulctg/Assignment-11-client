@@ -113,7 +113,7 @@ const BookDetails = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-4xl mx-auto">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
           {book.name}
         </h2>

@@ -36,7 +36,7 @@ const CategoryPage = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="card bg-base-100 shadow-xl">
+          <div key={book.id} className="card bg-base-100 shadow-lg">
             <figure>
               <img src={book.image} alt={book.name} className="h-48 w-full object-cover" />
             </figure>

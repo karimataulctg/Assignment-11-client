@@ -19,14 +19,14 @@ const FeaturesBook = () => {
 
   return (
     <div>
-      <section className="bg-blue-50 py-10">
-        <div className="container mx-auto px-4">
+      <section className="w-11/12 mx-auto bg-blue-50 pt-10">
+        <div className="container mx-auto ">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
             Featured Books
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {books.map((book) => (
-              <div key={book._id} className="bg-white rounded-lg shadow-md p-4">
+              <div key={book._id} className="bg-white rounded-lg shadow-lg p-4">
                 <img
                   src={book.image}
                   alt={book.name}

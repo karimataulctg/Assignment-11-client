@@ -24,7 +24,7 @@ const LibraryServices = () => {
       animate="visible"
       variants={containerVariants}
     >
-      <div className="container mx-auto px-4">
+      <div className="w-11/12 mx-auto">
         <motion.h2
           className="text-3xl font-bold text-center text-gray-800 mb-6"
           initial={{ opacity: 0, y: -30 }}
@@ -53,7 +53,7 @@ const LibraryServices = () => {
           ].map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-2xl shadow-md text-center"
+              className="bg-white p-6 rounded-2xl shadow-lg text-center"
               variants={cardVariants}
             >
               <h3 className="text-xl font-semibold text-gray-700 mb-3">

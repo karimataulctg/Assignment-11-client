@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 text-white py-8">
-    <div className="w-full mx-auto px-4">
+    <footer className="w-full bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 text-white p-8">
+    <div className="w-full mx-auto">
       <div className="flex flex-wrap justify-between items-center">
         {/* Address Section */}
         <div className="w-full sm:w-1/3 mb-6 sm:mb-0">

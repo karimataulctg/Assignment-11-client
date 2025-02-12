@@ -9,7 +9,7 @@ const ExtraSections = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Example Book Card */}
           {[...Array(4)].map((_, index) => (
-            <div key={index} className="card bg-base-100 shadow-xl">
+            <div key={index} className="card bg-base-100 shadow-lg">
               <figure>
                 <img
                   src={`https://via.placeholder.com/150?text=Book+Cover+${index + 1}`}
@@ -39,7 +39,7 @@ const ExtraSections = () => {
             { title: "Study Rooms", description: "Reserve private study rooms." },
             { title: "Events", description: "Join our regular library events." },
           ].map((service, index) => (
-            <div key={index} className="card bg-base-100 shadow-xl p-6">
+            <div key={index} className="card bg-base-100 shadow-lg p-6">
               <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
               <p>{service.description}</p>
             </div>

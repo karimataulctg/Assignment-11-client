@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider";
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -108,6 +109,9 @@ const Navbar = () => {
 
       {/* Navbar End */}
       <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
+        <div className=" mr-4">
+          <ThemeToggle></ThemeToggle>
+        </div>
         {user ? (
           <div className="relative group flex items-center">
             <img
