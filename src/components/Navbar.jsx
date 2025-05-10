@@ -52,7 +52,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar w-full bg-gray-800 text-white shadow-md fixed top-0 left-0 z-50 opacity-90">
+    <div className="navbar w-full bg-gray-800 text-white shadow-lg fixed top-0 left-0 z-50 opacity-90">
+      
       {/* Navbar Start */}
       <div className="navbar-start flex items-center space-x-2 ml-4">
       <Link
@@ -111,9 +112,10 @@ const Navbar = () => {
 
       {/* Navbar End */}
       <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
+        <ThemeToggle></ThemeToggle>
         <div className=" mr-4">
         <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-black'}`}>
-      <ThemeToggle />
+      
       {/* Your page content here */}
     </div>
         </div>
