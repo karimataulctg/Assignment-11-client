@@ -5,11 +5,13 @@ import { AuthContext } from "../AuthProvider";
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "./ThemeContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, signOutUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDarkMode } = useTheme();
 
   const handleSignOut = () => {
     Swal.fire({
@@ -110,7 +112,10 @@ const Navbar = () => {
       {/* Navbar End */}
       <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
         <div className=" mr-4">
-          <ThemeToggle></ThemeToggle>
+        <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-black'}`}>
+      <ThemeToggle />
+      {/* Your page content here */}
+    </div>
         </div>
         {user ? (
           <div className="relative group flex items-center">
@@ -121,7 +126,7 @@ const Navbar = () => {
               alt="User Avatar"
               className="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
             />
-            <div className="hidden group-hover:flex flex-col absolute top-12 right-0 bg-gray-700 z-10 text-white p-2 rounded shadow-lg w-48">
+            <div className="hidden group-hover:flex flex-col absolute top-10 right-0 bg-gray-700 z-10 text-white p-2 rounded shadow-lg w-48">
               <span className="block">{user.displayName || user.email}</span>
               <button
                 className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 rounded mt-2"
@@ -200,6 +205,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
+          <ThemeToggle></ThemeToggle>
           <div className="flex items-center mt-4 w-full">
             {user ? (
               <>

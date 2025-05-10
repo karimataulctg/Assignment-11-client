@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import UpdateBookModal from "./UpdateBookModal"; // Ensure correct path
+import { useTheme } from "../components/ThemeContext";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -14,6 +15,7 @@ const Books = () => {
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const categoryType = queryParams.get("type");
+   const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const url = categoryType
@@ -68,7 +70,7 @@ const Books = () => {
   }
 
   return (
-    <div className="min-h-screen bg-blue-50 dark:bg-gray-900 dark:text-white p-5 transition duration-300">
+    <div className={`min-h-screen p-5 transition duration-300  ${isDarkMode ? "bg-gray-800 text-white" : "bg-blue-50" } ` }>
       <h1 className="text-3xl font-bold text-center mb-8">
         {categoryType ? `Books in ${categoryType} Category` : "All Books"}
       </h1>
@@ -83,7 +85,7 @@ const Books = () => {
         </button>
 
         <select
-          className="select select-bordered w-48 dark:bg-gray-800 dark:text-white"
+          className={`select select-bordered w-48 ${isDarkMode ? "bg-gray-800 text-white" : ""}`}
           value={viewMode}
           onChange={(e) => setViewMode(e.target.value)}
         >
@@ -92,7 +94,7 @@ const Books = () => {
         </select>
 
         <select
-          className="select select-bordered w-48 dark:bg-gray-800 dark:text-white"
+          className={`select select-bordered w-48 ${isDarkMode ? "bg-gray-800 text-white" : ""}`}
           value={sortOrder}
           onChange={(e) => handleSort(e.target.value)}
         >
@@ -109,7 +111,7 @@ const Books = () => {
             filteredBooks.map((book) => (
               <div
                 key={book._id}
-                className="card bg-white dark:bg-gray-800 dark:text-white shadow-md hover:shadow-lg transition"
+                className={ `card  shadow-md hover:shadow-lg transition ${ isDarkMode ? "bg-gray-600 text-white" :"bg-white"} `}
               >
                 <figure>
                   <img
@@ -131,7 +133,7 @@ const Books = () => {
                   </button>
                   <button
                     onClick={() => setSelectedBook(book)}
-                    className="btn bg-yellow-500 w-full mt-2"
+                    className="btn bg-yellow-500 text-black w-full mt-2"
                   >
                     Update Details
                   </button>

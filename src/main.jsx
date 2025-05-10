@@ -20,6 +20,8 @@ import CategoryBooks from './pages/CategoryBooks.jsx';
 import UpdateBook from './pages/UpdateBook.jsx';
 import BorrowedBooks from './pages/BorrowedBooks .jsx';
 import PrivateRoute from './PrivateRoute.jsx';
+import { ThemeProvider } from './components/ThemeContext.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,6 +77,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ThemeProvider>
     <AuthProvider><RouterProvider router={router} /></AuthProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

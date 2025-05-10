@@ -4,11 +4,13 @@ import Swal from "sweetalert2";
 import registerJson from '../assets/register.json';
 import Lottie from "lottie-react";
 import { AuthContext } from "../AuthProvider";
+import { useTheme } from "../components/ThemeContext";
 
 const Register = () => {
   const navigate = useNavigate();
   const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const { isDarkMode } = useTheme();
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -104,10 +106,12 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-blue-50  flex items-center justify-center">
+    <div className={`min-h-screen flex items-center justify-center ${
+      isDarkMode ? "bg-gray-800" : "bg-blue-50"
+    }`}>
       <div className="hero-content flex-col lg:flex-row items-center gap-10 w-full max-w-5xl">
-        <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
-          <form onSubmit={handleRegister} className="card-body">
+        <div className={`card  w-full max-w-lg shrink-0 shadow-2xl ${isDarkMode ? "bg-gray-600 text-white" : "bg-base-100 text-gray-700"}`}>
+          <form onSubmit={handleRegister} className="card-body ">
             <div className="form-control">
             <h1 className="text-center text-2xl font-bold">Register</h1>
               <label className="label">
@@ -117,7 +121,9 @@ const Register = () => {
                 type="text"
                 name="name"
                 placeholder="Name"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-gray-800 border-gray-300"
+                }`}
                 required
               />
             </div>
@@ -129,7 +135,9 @@ const Register = () => {
                 type="text"
                 name="photo"
                 placeholder="Photo URL"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-gray-800 border-gray-300"
+                }`}
                 required
               />
             </div>
@@ -141,7 +149,9 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="email"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-gray-800 border-gray-300"
+                }`}
                 required
               />
             </div>
@@ -153,7 +163,9 @@ const Register = () => {
                 type="password"
                 name="password"
                 placeholder="password"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  isDarkMode ? "bg-gray-700 text-white border-gray-600" : "bg-white text-gray-800 border-gray-300"
+                }`}
                 required
               />
               <label className="label">
@@ -172,7 +184,7 @@ const Register = () => {
               <button className="btn btn-wide bg-blue-600 hover:bg-blue-700">Register</button>
             </div>
             <div>
-              <button type="button " onClick={handleGoogleSignIn} className="btn bg-yellow-500 btn-wide">
+              <button type="button " onClick={handleGoogleSignIn} className="btn text-white bg-yellow-500 btn-wide">
                 Register with Google
               </button>
             </div>

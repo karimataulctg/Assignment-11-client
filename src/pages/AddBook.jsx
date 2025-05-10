@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Lottie from 'lottie-react';
 import Swal from 'sweetalert2';
 import animationData from '../assets/AddBook.json';
+import { useTheme } from '../components/ThemeContext'; // Import the useTheme hook
 
 const AddBook = ({ userEmail }) => {
   const initialBookState = {
@@ -16,6 +17,7 @@ const AddBook = ({ userEmail }) => {
   };
 
   const [book, setBook] = useState(initialBookState);
+  const { isDarkMode } = useTheme(); // Use the theme context
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,11 +59,19 @@ const AddBook = ({ userEmail }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-50 my-8">
-      <div className="flex flex-col md:flex-row bg-white shadow-lg p-5 md:w-4/5 py-4 my-8">
+    <div className={`flex justify-center items-center min-h-screen ${
+      isDarkMode ? 'bg-gray-800' : 'bg-blue-50'
+    } my-8`}>
+      <div className={`flex flex-col md:flex-row shadow-lg  md:w-4/5 p-6  ${
+        isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-800'
+      }`}>
         {/* Form Section */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-2xl text-center font-bold mb-4">Add New Book</h2>
+          <h2 className={`text-2xl text-center font-bold mb-4 ${
+            isDarkMode ? 'text-white' : 'text-gray-800'
+          }`}>
+            Add New Book
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">Book Name</label>
@@ -70,7 +80,9 @@ const AddBook = ({ userEmail }) => {
                 name="name"
                 value={book.name}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 required
               />
             </div>
@@ -81,7 +93,9 @@ const AddBook = ({ userEmail }) => {
                 name="author"
                 value={book.author}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 required
               />
             </div>
@@ -92,7 +106,9 @@ const AddBook = ({ userEmail }) => {
                 name="category"
                 value={book.category}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 required
               />
             </div>
@@ -103,7 +119,9 @@ const AddBook = ({ userEmail }) => {
                 name="image"
                 value={book.image}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
               />
             </div>
             <div>
@@ -113,7 +131,9 @@ const AddBook = ({ userEmail }) => {
                 name="quantity"
                 value={book.quantity}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 min="1"
                 required
               />
@@ -125,7 +145,9 @@ const AddBook = ({ userEmail }) => {
                 name="rating"
                 value={book.rating}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className={`input input-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 min="0"
                 max="5"
                 step="0.1"
@@ -137,12 +159,19 @@ const AddBook = ({ userEmail }) => {
                 name="description"
                 value={book.description}
                 onChange={handleChange}
-                className="textarea textarea-bordered w-full"
+                className={`textarea textarea-bordered w-full ${
+                  isDarkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-white text-gray-800 border-gray-300'
+                }`}
                 rows="4"
                 placeholder="Provide a brief description of the book"
               />
             </div>
-            <button type="submit" className="btn btn-primary w-full">
+            <button
+              type="submit"
+              className={`btn w-full ${
+                isDarkMode ? 'bg-yellow-600 text-black hover:bg-yellow-700' : 'bg-yellow-500 text-black hover:bg-yellow-600'
+              }`}
+            >
               Add Book
             </button>
           </form>
@@ -163,8 +192,3 @@ const AddBook = ({ userEmail }) => {
 };
 
 export default AddBook;
-
-
-
-
- 

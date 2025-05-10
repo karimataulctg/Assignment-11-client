@@ -1,7 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "../components/ThemeContext"; // Import the useTheme hook
 
 const LibraryServices = () => {
+  const { isDarkMode } = useTheme(); // Use the theme context
+
   // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -19,14 +22,16 @@ const LibraryServices = () => {
 
   return (
     <motion.section
-      className="bg-blue-50 py-10"
+      className={`py-10 ${isDarkMode ? "bg-gray-800" : "bg-blue-50"}`}
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <div className="w-11/12 mx-auto">
         <motion.h2
-          className="text-3xl font-bold text-center text-gray-800 mb-6"
+          className={`text-3xl font-bold text-center mb-6 ${
+            isDarkMode ? "text-white" : "text-gray-800"
+          }`}
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -53,13 +58,13 @@ const LibraryServices = () => {
           ].map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-2xl shadow-lg text-center"
+              className={`p-6 rounded-2xl shadow-lg text-center ${
+                isDarkMode ? "bg-gray-600 text-white" : "bg-white text-gray-700"
+              }`}
               variants={cardVariants}
             >
-              <h3 className="text-xl font-semibold text-gray-700 mb-3">
-                {service.title}
-              </h3>
-              <p className="text-gray-600">{service.description}</p>
+              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+              <p>{service.description}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from 'react';
+// ThemeToggle.js
+import React from 'react';
+import { useTheme } from './ThemeContext';
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      setIsDarkMode(true);
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
     <div className="w-11/12 mx-auto flex justify-end">
       <input 
         type="checkbox" 
-        className="toggle toggle-lg bg-sunflower-yellow" 
+        className="toggle toggle-lg bg-yellow-500" 
         checked={isDarkMode} 
         onChange={toggleTheme} 
       />
