@@ -6,6 +6,7 @@ import FeaturesBook from '../pages/FeaturesBook';
 import LibraryServices from '../pages/LibraryServices';
 import Reviews from '../pages/Reviews';
 import { useTheme } from './ThemeContext';
+import NewsletterPage from '../pages/NewsletterPage';
 
 const Home = () => {
     const { isDarkMode } = useTheme();
@@ -18,6 +19,7 @@ const Home = () => {
             <FeaturesBook></FeaturesBook>
             <LibraryServices></LibraryServices>
             <Reviews></Reviews>
+            <NewsletterPage></NewsletterPage>
         </div>
     );
 };
