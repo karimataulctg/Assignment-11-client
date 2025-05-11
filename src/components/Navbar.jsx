@@ -112,8 +112,9 @@ const Navbar = () => {
 
       {/* Navbar End */}
       <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
-        <ThemeToggle></ThemeToggle>
+        
         <div className=" mr-4">
+          <ThemeToggle></ThemeToggle>
         <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-black'}`}>
       
       {/* Your page content here */}
@@ -140,18 +141,26 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <Link
-              className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-1 rounded"
-              to="/login"
-            >
-              Log In
-            </Link>
-            <Link
-              className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-1 rounded"
-              to="/register"
-            >
-              Register
-            </Link>
+   <Link
+  className={`${
+    isDarkMode 
+      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
+      : 'bg-blue-500 hover:bg-blue-600 text-white'
+  } px-4 py-1 rounded transition-colors`}
+  to="/login"
+>
+  Log In
+</Link>
+<Link
+  className={`${
+    isDarkMode 
+      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
+      : 'bg-blue-500 hover:bg-blue-600 text-white'
+  } px-4 py-1 rounded transition-colors`}
+  to="/register"
+>
+  Register
+</Link>
           </>
         )}
       </div>
@@ -207,7 +216,9 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <ThemeToggle></ThemeToggle>
+          <div className="flex items-left ml-4">
+            <ThemeToggle></ThemeToggle>
+          </div>
           <div className="flex items-center mt-4 w-full">
             {user ? (
               <>
@@ -225,22 +236,30 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="btn bg-sunflower-yellow text-dark-charcoal hover:bg-dark-sunflower-yellow w-full"
-                  onClick={toggleMenu}
-                >
-                  Log In
-                </Link>
-                <Link
-                  to="/register"
-                  className="btn bg-sunflower-yellow text-dark-charcoal hover:bg-dark-sunflower-yellow w-full mt-2"
-                  onClick={toggleMenu}
-                >
-                  Register
-                </Link>
-              </>
+              <div className="flex flex-col items-center p-2">
+             <Link
+  to="/login"
+  className={`${
+    isDarkMode 
+      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
+      : 'bg-blue-500 hover:bg-blue-600 text-white'
+  } w-full px-4 py-2 rounded transition-colors`}
+  onClick={toggleMenu}
+>
+  Log In
+</Link>
+<Link
+  to="/register"
+  className={`${
+    isDarkMode 
+      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
+      : 'bg-blue-500 hover:bg-blue-600 text-white'
+  } w-full mt-2 px-4 py-2 rounded transition-colors`}
+  onClick={toggleMenu}
+>
+  Register
+</Link>
+              </div>
             )}
           </div>
         </div>
