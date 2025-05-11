@@ -43,17 +43,21 @@ const FeaturesBook = () => {
                 <h3 className="text-xl font-semibold">{book.name}</h3>
                 <p >{book.author}</p>
                 <button
-                  onClick={() => {
-                    if (!user || !user.email) {
-                      navigate("/login");
-                    } else {
-                      navigate(`/bookDetails/${book._id}`);
-                    }
-                  }}
-                  className="mt-4 px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600"
-                >
-                  View Details
-                </button>
+  onClick={() => {
+    if (!user || !user.email) {
+      navigate("/login");
+    } else {
+      navigate(`/bookDetails/${book._id}`);
+    }
+  }}
+  className={`mt-4 px-4 py-2 ${
+    isDarkMode 
+      ? "bg-yellow-500 hover:bg-yellow-600" 
+      : "bg-blue-600 hover:bg-blue-700"
+  } text-white rounded-lg transition-colors`}
+>
+  View Details
+</button>
               </div>
             ))}
           </div>

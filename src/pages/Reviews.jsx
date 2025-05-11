@@ -48,7 +48,11 @@ const Reviews = () => {
             ))}
           </select>
           <button
-            className="bg-yellow-500 text-black px-4 py-2 rounded mt-2 hover:bg-yellow-600"
+            className={`mt-4 px-4 py-2 ${
+    isDarkMode 
+      ? "bg-yellow-500 hover:bg-yellow-600" 
+      : "bg-blue-600 hover:bg-blue-700"
+  } text-white rounded-lg transition-colors`}
             onClick={addReview}
           >
             Submit Review
