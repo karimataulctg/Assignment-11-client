@@ -130,7 +130,7 @@ const BorrowedBooks = () => {
             <button
               onClick={() => handleReturnBook(book)}
               className={`mt-4 px-4 py-2 rounded-md shadow-lg ${
-                isDarkMode ? "bg-yellow-600 text-black hover:bg-yellow-700" : "bg-yellow-500 text-black hover:bg-yellow-600"
+                isDarkMode ? "bg-yellow-600 text-black hover:bg-yellow-700" : "bg-blue-600 text-black hover:bg-blue-700"
               }`}
             >
               Return Book

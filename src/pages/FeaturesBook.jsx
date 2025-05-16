@@ -20,7 +20,7 @@ const FeaturesBook = () => {
       });
   }, []);
 
-  return (
+ return (
     <div className={isDarkMode ? "bg-gray-800 text-white" : "bg-blue-50 text-gray-800"}>
       <section className="w-11/12 mx-auto pt-10">
         <div className="container mx-auto">
@@ -31,33 +31,35 @@ const FeaturesBook = () => {
             {books.map((book) => (
               <div
                 key={book._id}
-                className={`rounded-lg shadow-lg p-4 ${
+                className={`rounded-lg shadow-lg p-4 flex flex-col ${
                   isDarkMode ? "bg-gray-600 text-white" : "bg-white text-gray-700"
                 }`}
               >
-                <img
-                  src={book.image}
-                  alt={book.name}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-xl font-semibold">{book.name}</h3>
-                <p >{book.author}</p>
+                <div className="flex-1">  {/* Added flex-1 container */}
+                  <img
+                    src={book.image}
+                    alt={book.name}
+                    className="w-full h-48 object-cover rounded-md mb-4"
+                  />
+                  <h3 className="text-xl font-semibold">{book.name}</h3>
+                  <p>{book.author}</p>
+                </div>
                 <button
-  onClick={() => {
-    if (!user || !user.email) {
-      navigate("/login");
-    } else {
-      navigate(`/bookDetails/${book._id}`);
-    }
-  }}
-  className={`mt-4 px-4 py-2 ${
-    isDarkMode 
-      ? "bg-yellow-500 hover:bg-yellow-600" 
-      : "bg-blue-600 hover:bg-blue-700"
-  } text-white rounded-lg transition-colors`}
->
-  View Details
-</button>
+                  onClick={() => {
+                    if (!user || !user.email) {
+                      navigate("/login");
+                    } else {
+                      navigate(`/bookDetails/${book._id}`);
+                    }
+                  }}
+                  className={`mt-4 px-4 py-2 ${
+                    isDarkMode 
+                      ? "bg-yellow-500 hover:bg-yellow-600" 
+                      : "bg-blue-600 hover:bg-blue-700"
+                  } text-white rounded-lg transition-colors w-full`}  // Added w-full
+                >
+                  View Details
+                </button>
               </div>
             ))}
           </div>
@@ -66,5 +68,4 @@ const FeaturesBook = () => {
     </div>
   );
 };
-
 export default FeaturesBook;

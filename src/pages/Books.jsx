@@ -122,9 +122,9 @@ const Books = () => {
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">{book.name}</h2>
-                  <p className="text-gray-600 dark:text-gray-300">Author: {book.author}</p>
-                  <p className="text-gray-600 dark:text-gray-300">Category: {book.category}</p>
-                  <p className="text-gray-600 dark:text-gray-300">Quantity: {book.quantity}</p>
+                  <p className="">Author: {book.author}</p>
+                  <p className="">Category: {book.category}</p>
+                  <p className="">Quantity: {book.quantity}</p>
                   <button
                     onClick={() => navigate(`/bookDetails/${book._id}`)}
                     className="btn btn-primary w-full"

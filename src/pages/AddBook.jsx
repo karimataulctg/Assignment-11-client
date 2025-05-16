@@ -169,7 +169,7 @@ const AddBook = ({ userEmail }) => {
             <button
               type="submit"
               className={`btn w-full ${
-                isDarkMode ? 'bg-yellow-600 text-black hover:bg-yellow-700' : 'bg-yellow-500 text-black hover:bg-yellow-600'
+                isDarkMode ? 'bg-yellow-600 text-black hover:bg-yellow-700' : 'bg-blue-500 text-black hover:bg-blue-600'
               }`}
             >
               Add Book

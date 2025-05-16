@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider";
+import { useTheme } from '../components/ThemeContext'; 
 
 const BookDetails = () => {
   const { user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const BookDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isBorrowed, setIsBorrowed] = useState(false); // To track if the user has already borrowed the book
   const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isDarkMode } = useTheme(); // Use the theme context
 
   useEffect(() => {
     if (!bookId || !user) return; // Add a check for user

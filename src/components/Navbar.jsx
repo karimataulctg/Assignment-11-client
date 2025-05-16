@@ -1,17 +1,37 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/LibraryLogo.png";
+import { useEffect, useRef, useContext, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { AuthContext } from "../AuthProvider";
-import { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeContext";
+import logo from "../assets/LibraryLogo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, signOutUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode } = useTheme();
+  const menuRef = useRef(null);
+  const toggleButtonRef = useRef(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMenuOpen &&
+        !menuRef.current?.contains(event.target) &&
+        !toggleButtonRef.current?.contains(event.target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const handleSignOut = () => {
     Swal.fire({
@@ -26,6 +46,7 @@ const Navbar = () => {
       if (result.isConfirmed) {
         signOutUser()
           .then(() => {
+            setIsMenuOpen(false);
             Swal.fire({
               title: "Signed Out",
               text: "You have been successfully signed out!",
@@ -52,87 +73,71 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar w-full bg-gray-800 text-white shadow-lg fixed top-0 left-0 z-50 opacity-90">
-      
+    <div className={`navbar w-full ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'} text-white shadow-lg fixed top-0 left-0 z-50 opacity-90`}>
       {/* Navbar Start */}
       <div className="navbar-start flex items-center space-x-2 ml-4">
-      <Link
-          to="/"
-          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl text-white hover:text-blue-400"
-        >
-           <img src={logo} alt="Logo" className="w-10 h-10" />
-        </Link>
-       
         <Link
           to="/"
-          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl text-white hover:text-blue-400"
+          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl hover:text-blue-400"
+        >
+          <img src={logo} alt="Logo" className="w-10 h-10" />
+        </Link>
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-lg sm:text-base lg:text-xl hover:text-blue-400"
         >
           LIBRARY MGMT SYS.
         </Link>
       </div>
 
-      {/* Navbar Center */}
+      {/* Desktop Navigation */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/" className="text-white hover:text-blue-400">
+            <Link to="/" className="hover:text-blue-400">
               Home
             </Link>
           </li>
           <li>
             <button
-              className="text-white hover:text-blue-400"
-              onClick={() =>
-                !user || !user.email ? navigate("/login") : navigate("/books")
-              }
+              className="hover:text-blue-400"
+              onClick={() => (!user ? navigate("/login") : navigate("/books"))}
             >
               All Books
             </button>
           </li>
           <li>
             <button
-              className="text-white hover:text-blue-400"
-              onClick={() =>
-                !user || !user.email ? navigate("/login") : navigate("/addBook")
-              }
+              className="hover:text-blue-400"
+              onClick={() => (!user ? navigate("/login") : navigate("/addBook"))}
             >
               Add Book
             </button>
           </li>
           <li>
-            <Link
-              to="/borrowedBooks"
-              className="text-white hover:text-blue-400"
-            >
+            <Link to="/borrowedBooks" className="hover:text-blue-400">
               Borrowed Books
             </Link>
           </li>
         </ul>
       </div>
 
-      {/* Navbar End */}
+      {/* Desktop Auth Section */}
       <div className="navbar-end hidden lg:flex items-center space-x-4 mr-4">
-        
-        <div className=" mr-4">
-          <ThemeToggle></ThemeToggle>
-        <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-black'}`}>
-      
-      {/* Your page content here */}
-    </div>
+        <div className="mr-4">
+          <ThemeToggle />
         </div>
         {user ? (
           <div className="relative group flex items-center">
             <img
-              src={
-                user.photoURL || "https://via.placeholder.com/40?text=Avatar"
-              }
+              src={user.photoURL || "https://via.placeholder.com/40"}
               alt="User Avatar"
               className="w-10 h-10 rounded-full border-2 border-gray-200 cursor-pointer"
             />
-            <div className="hidden group-hover:flex flex-col absolute top-10 right-0 bg-gray-700 z-10 text-white p-2 rounded shadow-lg w-48">
+            <div className="hidden group-hover:flex flex-col absolute top-10 right-0 bg-gray-700 text-white p-2 rounded shadow-lg w-48">
               <span className="block">{user.displayName || user.email}</span>
               <button
-                className="bg-blue-800 hover:bg-blue-950 text-white px-4 py-1 rounded mt-2"
+                className="bg-blue-800 hover:bg-blue-950 px-4 py-1 rounded mt-2"
                 onClick={handleSignOut}
               >
                 Log Out
@@ -141,66 +146,75 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-   <Link
-  className={`${
-    isDarkMode 
-      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
-      : 'bg-blue-500 hover:bg-blue-600 text-white'
-  } px-4 py-1 rounded transition-colors`}
-  to="/login"
->
-  Log In
-</Link>
-<Link
-  className={`${
-    isDarkMode 
-      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
-      : 'bg-blue-500 hover:bg-blue-600 text-white'
-  } px-4 py-1 rounded transition-colors`}
-  to="/register"
->
-  Register
-</Link>
+            <Link
+              className={`${
+                isDarkMode
+                  ? "bg-yellow-500 hover:bg-yellow-600 text-blue-900"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } px-4 py-1 rounded transition-colors`}
+              to="/login"
+            >
+              Log In
+            </Link>
+            <Link
+              className={`${
+                isDarkMode
+                  ? "bg-yellow-500 hover:bg-yellow-600 text-blue-900"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } px-4 py-1 rounded transition-colors`}
+              to="/register"
+            >
+              Register
+            </Link>
           </>
         )}
       </div>
 
-      {/* Hamburger Menu */}
-      <div className="lg:hidden ml-auto">
-        <button onClick={toggleMenu} className="text-white focus:outline-none">
+      {/* Mobile Menu Toggle */}
+      <div className="lg:hidden ml-auto" ref={toggleButtonRef}>
+        <button
+          onClick={toggleMenu}
+          className="text-white focus:outline-none p-2"
+        >
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>
+
+      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden flex flex-col items-start bg-gray-800 p-2  text-white absolute top-20 left-8 right-8 z-10 shadow-lg">
+        <div
+          className={`lg:hidden flex flex-col items-start ${
+            isDarkMode ? "bg-gray-900" : "bg-gray-800"
+          } p-2 text-white absolute top-20 left-0 right-0 mx-4 z-10 shadow-lg rounded-lg`}
+          ref={menuRef}
+        >
           <ul className="menu flex flex-col w-full">
             <li>
               <Link
                 to="/"
-                className="text-white hover:text-blue-400 py-2"
+                className="hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
             </li>
             <li>
-              <Link
-                to="/books"
-                className="text-white hover:text-blue-400 py-2"
-                onClick={toggleMenu}
+              <button
+                className="hover:text-blue-400 py-2 text-left"
+                onClick={() => {
+                  !user ? navigate("/login") : navigate("/books");
+                  toggleMenu();
+                }}
               >
                 All Books
-              </Link>
+              </button>
             </li>
             <li>
               <button
-                className="text-white hover:text-blue-400"
+                className="hover:text-blue-400 py-2 text-left"
                 onClick={() => {
-                  if (!user || !user.email) {
-                    navigate("/login");
-                  } else {
-                    navigate("/addBook");
-                  }
+                  !user ? navigate("/login") : navigate("/addBook");
+                  toggleMenu();
                 }}
               >
                 Add Book
@@ -209,56 +223,60 @@ const Navbar = () => {
             <li>
               <Link
                 to="/borrowedBooks"
-                className="text-white hover:text-blue-400 py-2"
+                className="hover:text-blue-400 py-2"
                 onClick={toggleMenu}
               >
                 Borrowed Books
               </Link>
             </li>
           </ul>
-          <div className="flex items-left ml-4">
-            <ThemeToggle></ThemeToggle>
+
+          <div className="w-full px-4 py-2">
+            <ThemeToggle />
           </div>
-          <div className="flex items-center mt-4 w-full">
+
+          <div className="w-full px-4 py-2 border-t border-gray-700">
             {user ? (
-              <>
-                <img
-                  src={user.photoURL}
-                  alt={user.displayName}
-                  className="w-8 h-8 rounded-full mr-2"
-                />
-                <span className="mr-2">{user.displayName || user.email}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <img
+                    src={user.photoURL || "https://via.placeholder.com/40"}
+                    alt="User"
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <span>{user.displayName || user.email}</span>
+                </div>
                 <button
-                  className="bg-slate-700 hover:bg-slate-950 text-white px-1 py-1 rounded "
+                  className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
                   onClick={handleSignOut}
                 >
-                  Log Out
+                  Logout
                 </button>
-              </>
+              </div>
             ) : (
-              <div className="flex flex-col items-center p-2">
-             <Link
-  to="/login"
-  className={`${
-    isDarkMode 
-      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
-      : 'bg-blue-500 hover:bg-blue-600 text-white'
-  } w-full px-4 py-2 rounded transition-colors`}
-  onClick={toggleMenu}
->
-  Log In
-</Link>
-<Link
-  to="/register"
-  className={`${
-    isDarkMode 
-      ? 'bg-yellow-500 hover:bg-yellow-600 text-blue-900' 
-      : 'bg-blue-500 hover:bg-blue-600 text-white'
-  } w-full mt-2 px-4 py-2 rounded transition-colors`}
-  onClick={toggleMenu}
->
-  Register
-</Link>
+              <div className="flex flex-col gap-2">
+                <Link
+                  className={`${
+                    isDarkMode
+                      ? "bg-yellow-500 hover:bg-yellow-600 text-blue-900"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  } w-full text-center px-4 py-2 rounded transition-colors`}
+                  to="/login"
+                  onClick={toggleMenu}
+                >
+                  Log In
+                </Link>
+                <Link
+                  className={`${
+                    isDarkMode
+                      ? "bg-yellow-500 hover:bg-yellow-600 text-blue-900"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  } w-full text-center px-4 py-2 rounded transition-colors`}
+                  to="/register"
+                  onClick={toggleMenu}
+                >
+                  Register
+                </Link>
               </div>
             )}
           </div>
